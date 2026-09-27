@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brevos — 3D Web Design & Digital Marketing Studio</title>
+  
+  <!-- Meta & SEO -->
+  <meta name="description" content="Brevos is an elite web design and digital marketing studio sculpting next-level 3D websites, high-converting SEO, and digital growth for luxury hotels, boutique villas, and artisanal cafés.">
+  <meta name="keywords" content="Brevos, web design studio, 3D animated portfolio, Three.js website, hotel web design, villa web design, cafe website, digital marketing Sri Lanka, hospitality web agency">
+  <meta name="author" content="Brevos Studio">
+  
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="Brevos — 3D Web Design & Digital Marketing Studio">
+  <meta property="og:description" content="Sculpting next-level 3D websites, high-converting SEO, and digital marketing for boutique villas, luxury hotels, and artisanal cafés.">
+  <meta property="og:image" content="./assets/images/hotel-grand-azure.jpg">
+  <meta property="og:type" content="website">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,8 90,30 90,70 50,92 10,70 10,30' fill='none' stroke='%23e5c07b' stroke-width='8'/><circle cx='50' cy='50' r='14' fill='%23e5c07b'/></svg>">
+
+  <!-- Google Fonts: Syne (Display) & Plus Jakarta Sans (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- WebGL Background Canvas -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- Ambient Vignette -->
+  <div class="vignette-overlay"></div>
+
+  <!-- Custom Glowing Cursor (Desktop Only) -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-glow"></div>
+
+  <!-- Site Header & Navigation -->
+  <header class="site-header" id="header">
+    <div class="container nav-container">
+      <a href="#hero" class="brand-logo" aria-label="Brevos Home">
+        <svg class="brand-icon" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- 3D Geometric Faceted Monogram -->
+          <polygon points="30,4 56,19 56,41 30,56 4,41 4,19" stroke="#e5c07b" stroke-width="2.5" stroke-linejoin="round" fill="rgba(229, 192, 123, 0.05)"/>
+          <line x1="30" y1="4" x2="30" y2="56" stroke="#e5c07b" stroke-width="1.8" stroke-dasharray="2 3"/>
+          <line x1="4" y1="19" x2="56" y2="41" stroke="#e5c07b" stroke-width="1.5" stroke-opacity="0.6"/>
+          <line x1="4" y1="41" x2="56" y2="19" stroke="#e5c07b" stroke-width="1.5" stroke-opacity="0.6"/>
+          <polygon points="30,16 46,25 46,35 30,44 14,35 14,25" fill="#e5c07b" fill-opacity="0.25" stroke="#e5c07b" stroke-width="1.5"/>
+          <circle cx="30" cy="30" r="3.5" fill="#fff"/>
+        </svg>
+        <div class="brand-text-group">
+          <span class="brand-name">BREVOS</span>
+          <span class="brand-tag">DIGITAL STUDIO</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Menu -->
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <ul class="nav-menu">
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#pricing" class="nav-link">Pricing</a></li>
+          <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <!-- Optional Audio Toggle -->
+        <button id="sound-toggle" class="sound-toggle-btn" aria-label="Toggle ambient audio feedback" aria-pressed="false">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <span class="sound-label">Audio: OFF</span>
+        </button>
+
+        <a href="#contact" class="btn btn-primary btn-sm">Get in Touch</a>
+
+        <!-- Mobile Menu Hamburger -->
+        <button id="mobile-toggle" class="mobile-toggle-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Nav Overlay -->
+  <div id="mobile-menu" class="mobile-nav-overlay" aria-hidden="true">
+    <ul class="mobile-nav-list">
+      <li><a href="#hero" class="mobile-nav-link">Home</a></li>
+      <li><a href="#services" class="mobile-nav-link">Services</a></li>
+      <li><a href="#pricing" class="mobile-nav-link">Pricing</a></li>
+      <li><a href="#portfolio" class="mobile-nav-link">Portfolio</a></li>
+      <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Content Sections Wrapper -->
+  <main class="content-wrapper">
+
+    <!-- ====================================================================
+         SECTION 1: HERO
+         ==================================================================== -->
+    <section id="hero" class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            <span>NEXT-GEN 3D WEB & DIGITAL MARKETING STUDIO</span>
+          </div>
+
+          <h1 class="hero-title">
+            <span class="title-line">Sculpting Memorable</span>
+            <span class="title-line"><span class="title-accent">Digital Destinations</span></span>
+            <span class="title-line">For Stays & Spaces.</span>
+          </h1>
+
+          <p class="hero-tagline">
+            Brevos elevates boutique villas, luxury hotels, and artisanal cafés into iconic online landmarks through smooth 3D motion, hyper-targeted SEO, and multi-channel digital marketing.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#portfolio" class="btn btn-primary">
+              <span>Explore Our Work</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+
+            <a href="#contact" class="btn btn-secondary">
+              <span>Start Your Project</span>
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-value">Hospitality</span>
+              <span class="stat-label">Specialized Focus</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">3D Immersive</span>
+              <span class="stat-label">WebGL & Smooth Motion</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">Direct Booking</span>
+              <span class="stat-label">Zero-Commission Growth</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="scroll-indicator" aria-hidden="true">
+        <div class="mouse-icon">
+          <div class="mouse-wheel"></div>
+        </div>
+        <span>Scroll to Explore</span>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 2: SERVICES
+         ==================================================================== -->
+    <section id="services" class="section services-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">WHAT WE CRAFT</span>
+          <h2 class="section-title">End-to-End Capabilities Built for Hospitality Excellence</h2>
+          <p class="section-desc">
+            We merge bespoke engineering, fine aesthetic taste, and revenue-driven marketing to turn curious visitors into confirmed bookings.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <!-- 1. Website Design & Development (Primary Focus) -->
+          <div class="service-card featured tilt-card interactive-card">
+            <div class="card-glare"></div>
+            <span class="service-badge">Primary Focus</span>
+            <div class="service-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <h3 class="service-title">Website Design & Development</h3>
+            <p class="service-desc">
+              Bespoke, high-performance web destinations crafted with fluid 3D animations, custom booking engines, and editorial storytelling. Tailored for hotels, boutique villas, and upscale cafés.
+            </p>
+            <div class="service-tags">
+              <span class="service-tag">3D WebGL</span>
+              <span class="service-tag">Direct Bookings</span>
+              <span class="service-tag">Ultra Fast</span>
+              <span class="service-tag">Mobile First</span>
+            </div>
+          </div>
+
+          <!-- 2. SEO Optimization -->
+          <div class="service-card tilt-card interactive-card">
+            <div class="card-glare"></div>
+            <div class="service-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <polyline points="11 8 11 11 14 11"></polyline>
+              </svg>
+            </div>
+            <h3 class="service-title">SEO Optimization</h3>
+            <p class="service-desc">
+              Dominate organic Google searches when guests hunt for boutique stays, romantic dinners, or luxury villas. Complete local pack optimization, structured rich snippets, and international ranking.
+            </p>
+            <div class="service-tags">
+              <span class="service-tag">Local Pack</span>
+              <span class="service-tag">Schema Markup</span>
+              <span class="service-tag">Google Maps</span>
+              <span class="service-tag">Keyword Mastery</span>
+            </div>
+          </div>
+
+          <!-- 3. Digital Marketing -->
+          <div class="service-card tilt-card interactive-card">
+            <div class="card-glare"></div>
+            <div class="service-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+            <h3 class="service-title">Digital Marketing</h3>
+            <p class="service-desc">
+              High-ROI paid ad funnels across Meta and Google that capture high-intent travelers during booking seasons, holiday spikes, and weekend getaway surges.
+            </p>
+            <div class="service-tags">
+              <span class="service-tag">Meta Ads</span>
+              <span class="service-tag">Search Campaigns</span>
+              <span class="service-tag">Retargeting</span>
+              <span class="service-tag">Conversion Tracking</span>
+            </div>
+          </div>
+
+          <!-- 4. Social Media Management -->
+          <div class="service-card tilt-card interactive-card">
+            <div class="card-glare"></div>
+            <div class="service-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+              </svg>
+            </div>
+            <h3 class="service-title">Social Media Management</h3>
+            <p class="service-desc">
+              Strategic, cohesive brand presence orchestrated across Facebook, Instagram, WhatsApp Business, and Telegram. High-aesthetic reels, community engagement, and direct chat booking automation.
+            </p>
+            <div class="service-tags">
+              <span class="service-tag">Instagram</span>
+              <span class="service-tag">Facebook</span>
+              <span class="service-tag">WhatsApp Flow</span>
+              <span class="service-tag">Telegram</span>
+            </div>
+          </div>
+
+          <!-- 5. Photography & Visual Direction -->
+          <div class="service-card tilt-card interactive-card">
+            <div class="card-glare"></div>
+            <div class="service-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
+            </div>
+            <h3 class="service-title">Photography & Visual Production</h3>
+            <p class="service-desc">
+              Evocative architectural captures, drone aerial perspectives, and culinary photography that evoke desire and spotlight the uniqueness of your rooms, sunset decks, and menu specials.
+            </p>
+            <div class="service-tags">
+              <span class="service-tag">Architectural</span>
+              <span class="service-tag">4K Drone</span>
+              <span class="service-tag">Culinary Arts</span>
+              <span class="service-tag">Atmospheric</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 3: PRICING
+         ==================================================================== -->
+    <section id="pricing" class="section pricing-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">TRANSPARENT PACKAGES</span>
+          <h2 class="section-title">Investment Plans Engineered for Maximum ROI</h2>
+          <p class="section-desc">
+            No hidden clauses. Clear deliverables tailored to accelerate guest inquiries and establish undeniable digital prestige.
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Tier 1: Basic -->
+          <div class="pricing-card tilt-card interactive-card">
+            <div class="tier-header">
+              <h3 class="tier-name">Basic</h3>
+              <p class="tier-desc">Essential modern online identity for cafés and boutique spaces taking their first step.</p>
+            </div>
+
+            <div class="tier-price-box">
+              <span class="tier-currency">LKR</span>
+              <span class="tier-amount">20,000</span>
+              <span class="tier-period">/ one-time</span>
+            </div>
+
+            <ul class="tier-features">
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Single-page responsive showcase website</span>
+              </li>
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Ultra-fast CDN hosting setup & custom domain</span>
+              </li>
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Mobile & tablet touch optimization</span>
+              </li>
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Direct WhatsApp & Social chat integration</span>
+              </li>
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Basic Google Search & Maps indexing</span>
+              </li>
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>1 Revision cycle & 7 days post-launch support</span>
+              </li>
+            </ul>
+
+            <button class="btn btn-secondary btn-block pricing-card-btn" data-tier="basic">
+              <span>Get Started</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+          </div>
+
+          <!-- Tier 2: Standard (Most Popular) -->
+          <div class="pricing-card popular tilt-card interactive-card">
+            <span class="popular-badge">Most Popular • Ideal for Villas & Cafés</span>
+            
+            <div class="tier-header">
+              <h3 class="tier-name">Standard</h3>
+              <p class="tier-desc">Dynamic animated multi-section website with booking inquiries and localized SEO domination.</p>
+            </div>
+
+            <div class="tier-price-box">
+              <span class="tier-currency">LKR</span>
+              <span class="tier-amount">50,000</span>
+              <span class="tier-period">/ one-time</span>
+            </div>
+
+            <ul class="tier-features">
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Everything in Basic</span>
+              </li>
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Multi-section bespoke interactive website</span>
+              </li>
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Subtle 3D scroll motion & micro-interactions</span>
+              </li>
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Direct booking / reservation inquiry forms</span>
+              </li>
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Comprehensive Local SEO & Google Business profile</span>
+              </li>
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Social channels onboarding (FB, IG, WhatsApp, Telegram)</span>
+              </li>
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>14 Days priority post-launch concierge support</span>
+              </li>
+            </ul>
+
+            <button class="btn btn-primary btn-block pricing-card-btn" data-tier="standard">
+              <span>Get Started</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+          </div>
+
+          <!-- Tier 3: Premium -->
+          <div class="pricing-card tilt-card interactive-card">
+            <div class="tier-header">
+              <h3 class="tier-name">Premium</h3>
+              <p class="tier-desc">World-class digital flagship for luxury boutique hotels and premier villa estates.</p>
+            </div>
+
+            <div class="tier-price-box">
+              <span class="tier-currency">LKR</span>
+              <span class="tier-amount">100,000</span>
+              <span class="tier-period">/ one-time</span>
+            </div>
+
+            <ul class="tier-features">
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Everything in Standard</span>
+              </li>
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Full bespoke 3D WebGL interactive web experience</span>
+              </li>
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Complete direct booking engine & calendar sync</span>
+              </li>
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Advanced SEO strategy & competitor positioning</span>
+              </li>
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>High-impact ad campaign strategy & social launch kit</span>
+              </li>
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Photography art direction & visual mastering</span>
+              </li>
+              <li class="feature-item">
+                <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>30 Days dedicated concierge maintenance & analytics</span>
+              </li>
+            </ul>
+
+            <button class="btn btn-secondary btn-block pricing-card-btn" data-tier="premium">
+              <span>Get Started</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 4: PORTFOLIO
+         ==================================================================== -->
+    <section id="portfolio" class="section portfolio-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">SELECTED WORKS & ARCHITECTURE</span>
+          <h2 class="section-title">Proof of Craft & Interactive Prototypes</h2>
+          <p class="section-desc">
+            Explore our live production client platforms alongside curated hospitality demo concepts ready to be adapted for your brand.
+          </p>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="portfolio-filters">
+          <button class="filter-btn active" data-filter="all">All Projects</button>
+          <button class="filter-btn" data-filter="live">Live Client Work</button>
+          <button class="filter-btn" data-filter="hospitality">Hospitality Demos</button>
+        </div>
+
+        <div class="portfolio-grid">
+          <!-- 1. Live Client: Travel with Maalaka -->
+          <article class="portfolio-card interactive-card" data-category="live hospitality">
+            <div class="card-media-wrapper">
+              <img src="./assets/images/travel-with-maalaka.jpg" alt="Travel with Maalaka Website Mockup" class="portfolio-img" loading="lazy">
+              <span class="card-tag-badge">Live Case Study</span>
+              <div class="card-overlay-actions">
+                <button class="btn btn-primary btn-sm open-modal-btn" data-project="maalaka">Quick View</button>
+                <a href="https://travelwithmaalaka.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Live Site</a>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <div class="portfolio-cat">Hospitality & Excursion Platform</div>
+              <h3 class="portfolio-title">Travel with Maalaka</h3>
+              <p class="portfolio-desc">
+                An editorial-grade travel discovery portal showcasing Sri Lanka's tea train journeys, coastlines, and boutique stays.
+              </p>
+              <div class="portfolio-footer-meta">
+                <a href="https://travelwithmaalaka.com" target="_blank" rel="noopener noreferrer" class="portfolio-link-btn">
+                  <span>travelwithmaalaka.com</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+                <button class="portfolio-preview-btn open-modal-btn" data-project="maalaka">Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2. Live Client: Manuga Pulmith Portfolio -->
+          <article class="portfolio-card interactive-card" data-category="live">
+            <div class="card-media-wrapper">
+              <img src="./assets/images/manuga-pulmith.jpg" alt="Manuga Pulmith Portfolio Mockup" class="portfolio-img" loading="lazy">
+              <span class="card-tag-badge">Live Case Study</span>
+              <div class="card-overlay-actions">
+                <button class="btn btn-primary btn-sm open-modal-btn" data-project="manuga">Quick View</button>
+                <a href="https://manugapulmith.github.io/Portfolio" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Live Site</a>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <div class="portfolio-cat">Creative Developer Showcase</div>
+              <h3 class="portfolio-title">Manuga Pulmith</h3>
+              <p class="portfolio-desc">
+                Cybernetic dark-mode developer portfolio pushing the boundaries of WebGL interactive visualizers and kinetic typography.
+              </p>
+              <div class="portfolio-footer-meta">
+                <a href="https://manugapulmith.github.io/Portfolio" target="_blank" rel="noopener noreferrer" class="portfolio-link-btn">
+                  <span>manugapulmith.github.io</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+                <button class="portfolio-preview-btn open-modal-btn" data-project="manuga">Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3. Demo Concept: Hotel Style -->
+          <article class="portfolio-card interactive-card" data-category="hospitality">
+            <div class="card-media-wrapper">
+              <img src="./assets/images/hotel-grand-azure.jpg" alt="The Grand Azure Hotel Demo" class="portfolio-img" loading="lazy">
+              <span class="card-tag-badge">Hotel Concept Demo</span>
+              <div class="card-overlay-actions">
+                <button class="btn btn-primary btn-sm open-modal-btn" data-project="hotel">Explore Architecture</button>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <div class="portfolio-cat">5-Star Luxury Resort</div>
+              <h3 class="portfolio-title">The Grand Azure Hotel & Suites</h3>
+              <p class="portfolio-desc">
+                Monumental oceanfront hotel site featuring real-time room availability checks, 360° virtual tours, and infinity pool visualizers.
+              </p>
+              <div class="portfolio-footer-meta">
+                <span class="tech-tag">Booking Engine Ready</span>
+                <button class="portfolio-preview-btn open-modal-btn" data-project="hotel">Architecture ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4. Demo Concept: Cafe Style -->
+          <article class="portfolio-card interactive-card" data-category="hospitality">
+            <div class="card-media-wrapper">
+              <img src="./assets/images/cafe-roast-bloom.jpg" alt="Roast & Bloom Cafe Demo" class="portfolio-img" loading="lazy">
+              <span class="card-tag-badge">Café Concept Demo</span>
+              <div class="card-overlay-actions">
+                <button class="btn btn-primary btn-sm open-modal-btn" data-project="cafe">Explore Architecture</button>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <div class="portfolio-cat">Specialty Roastery & Bistro</div>
+              <h3 class="portfolio-title">Roast & Bloom Artisanal Roastery</h3>
+              <p class="portfolio-desc">
+                Tactile coffee house experience combining single-origin roast ordering with instant table booking and Instagram reels integration.
+              </p>
+              <div class="portfolio-footer-meta">
+                <span class="tech-tag">Table Reservation Flow</span>
+                <button class="portfolio-preview-btn open-modal-btn" data-project="cafe">Architecture ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 5. Demo Concept: Villa Style -->
+          <article class="portfolio-card interactive-card" data-category="hospitality">
+            <div class="card-media-wrapper">
+              <img src="./assets/images/villa-serenia.jpg" alt="Serenia Cliffside Sanctuary Demo" class="portfolio-img" loading="lazy">
+              <span class="card-tag-badge">Villa Concept Demo</span>
+              <div class="card-overlay-actions">
+                <button class="btn btn-primary btn-sm open-modal-btn" data-project="villa">Explore Architecture</button>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <div class="portfolio-cat">Private Cliffside Villa</div>
+              <h3 class="portfolio-title">Serenia Cliffside Sanctuary</h3>
+              <p class="portfolio-desc">
+                Minimalist, high-fashion architectural sanctuary featuring private plunge pool floorplans and VIP WhatsApp concierge reservation.
+              </p>
+              <div class="portfolio-footer-meta">
+                <span class="tech-tag">VIP Concierge Ready</span>
+                <button class="portfolio-preview-btn open-modal-btn" data-project="villa">Architecture ↗</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 5: CONTACT
+         ==================================================================== -->
+    <section id="contact" class="section contact-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">START A DIALOGUE</span>
+          <h2 class="section-title">Ready to Elevate Your Digital Horizon?</h2>
+          <p class="section-desc">
+            Tell us about your property or venture. We respond promptly with actionable insights, timeline projections, and architecture recommendations.
+          </p>
+        </div>
+
+        <div class="contact-layout">
+          <!-- Left Column: Direct Channels & Studio Info -->
+          <div class="contact-info-col">
+            <div class="contact-intro-box">
+              <h3 class="contact-sub-title">Connect Directly</h3>
+              <p class="contact-sub-desc">
+                Prefer direct messaging or an instant voice discovery session? Reach out across our official business channels.
+              </p>
+
+              <div class="channel-list">
+                <!-- WhatsApp -->
+                <a href="https://wa.me/94771234567?text=Hi%20Brevos%20Studio%2C%20I%20would%20like%20to%20discuss%20a%20project%20for%20my%20property." target="_blank" rel="noopener noreferrer" class="channel-item">
+                  <div class="channel-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                  </div>
+                  <div class="channel-meta">
+                    <span class="channel-label">Instant Chat (Fastest)</span>
+                    <span class="channel-val">WhatsApp Business</span>
+                  </div>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://instagram.com/brevos.studio" target="_blank" rel="noopener noreferrer" class="channel-item">
+                  <div class="channel-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                  </div>
+                  <div class="channel-meta">
+                    <span class="channel-label">Visual Journal</span>
+                    <span class="channel-val">@brevos.studio</span>
+                  </div>
+                </a>
+
+                <!-- Facebook -->
+                <a href="https://facebook.com/BrevosStudio" target="_blank" rel="noopener noreferrer" class="channel-item">
+                  <div class="channel-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                  </div>
+                  <div class="channel-meta">
+                    <span class="channel-label">Official Page</span>
+                    <span class="channel-val">Facebook / BrevosStudio</span>
+                  </div>
+                </a>
+
+                <!-- Telegram -->
+                <a href="https://t.me/BrevosStudio" target="_blank" rel="noopener noreferrer" class="channel-item">
+                  <div class="channel-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                  </div>
+                  <div class="channel-meta">
+                    <span class="channel-label">Secure Messaging</span>
+                    <span class="channel-val">Telegram @BrevosStudio</span>
+                  </div>
+                </a>
+
+                <!-- Email -->
+                <a href="mailto:hello@brevos.studio" class="channel-item">
+                  <div class="channel-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  </div>
+                  <div class="channel-meta">
+                    <span class="channel-label">Direct Correspondence</span>
+                    <span class="channel-val">hello@brevos.studio</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Form & WhatsApp Generator -->
+          <div class="contact-form-box">
+            <form id="brevos-contact-form" autocomplete="on">
+              <div class="form-grid">
+                <!-- Name -->
+                <div class="form-group">
+                  <label for="contact-name" class="form-label">Your Name</label>
+                  <input type="text" id="contact-name" name="name" class="form-input" placeholder="e.g. Kasun Jayawardena" required>
+                </div>
+
+                <!-- Business / Property -->
+                <div class="form-group">
+                  <label for="contact-property" class="form-label">Hotel / Villa / Café Name</label>
+                  <input type="text" id="contact-property" name="property" class="form-input" placeholder="e.g. Whispering Palms Villa" required>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                  <label for="contact-email" class="form-label">Email Address</label>
+                  <input type="email" id="contact-email" name="email" class="form-input" placeholder="kasun@destination.com" required>
+                </div>
+
+                <!-- Phone / WhatsApp -->
+                <div class="form-group">
+                  <label for="contact-phone" class="form-label">WhatsApp or Phone Number</label>
+                  <input type="tel" id="contact-phone" name="phone" class="form-input" placeholder="+94 77 000 0000" required>
+                </div>
+
+                <!-- Service Required -->
+                <div class="form-group full-width">
+                  <label for="contact-service" class="form-label">Primary Service Required</label>
+                  <select id="contact-service" name="service" class="form-select">
+                    <option value="Website Design & Development (Primary Focus)">Website Design & Development (Primary Focus)</option>
+                    <option value="SEO Optimization">SEO Optimization & Google Search Domination</option>
+                    <option value="Digital Marketing Campaigns">Digital Marketing & Paid Ad Funnels</option>
+                    <option value="Social Media Management">Social Media Management (FB, IG, WhatsApp, Telegram)</option>
+                    <option value="Photography & Visual Production">Photography & Drone Aerial Production</option>
+                    <option value="Full Digital Turnkey Solution">Full Turnkey Digital Suite (All Inclusive)</option>
+                  </select>
+                </div>
+
+                <!-- Selected Tier Selector -->
+                <div class="form-group full-width">
+                  <label class="form-label">Selected Budget Tier</label>
+                  <div class="tier-pills-group">
+                    <label class="tier-pill-label">
+                      <input type="radio" name="budget-tier" value="Basic (LKR 20,000)">
+                      <div class="pill-card">
+                        <span class="pill-tier">Basic</span>
+                        <span class="pill-price">LKR 20,000</span>
+                      </div>
+                    </label>
+
+                    <label class="tier-pill-label">
+                      <input type="radio" name="budget-tier" value="Standard (LKR 50,000)" checked>
+                      <div class="pill-card">
+                        <span class="pill-tier">Standard ★</span>
+                        <span class="pill-price">LKR 50,000</span>
+                      </div>
+                    </label>
+
+                    <label class="tier-pill-label">
+                      <input type="radio" name="budget-tier" value="Premium (LKR 100,000)">
+                      <div class="pill-card">
+                        <span class="pill-tier">Premium</span>
+                        <span class="pill-price">LKR 100,000</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Message -->
+                <div class="form-group full-width">
+                  <label for="contact-message" class="form-label">Project Details & Vision</label>
+                  <textarea id="contact-message" name="message" class="form-textarea" placeholder="Share your location, current website, goals, or desired launch date..."></textarea>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="form-actions-stack">
+                <button type="submit" class="btn btn-primary btn-block">
+                  <span>Send Studio Inquiry</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+
+                <button type="button" id="btn-send-whatsapp" class="btn wa-action-btn btn-block">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.78 14.18c-.24.68-1.39 1.3-1.92 1.38-.49.08-1.12.12-3.64-.93-3.22-1.34-5.28-4.63-5.44-4.85-.16-.22-1.3-1.73-1.3-3.3 0-1.57.82-2.34 1.11-2.66.29-.32.64-.4.85-.4.21 0 .43 0 .61.01.2.01.46-.07.72.55.26.63.9 2.2.98 2.36.08.16.13.35.03.55-.1.2-.15.33-.3.51-.15.18-.32.4-.46.54-.15.15-.31.31-.13.62.18.31.8 1.32 1.72 2.14 1.18 1.05 2.17 1.38 2.48 1.53.31.16.49.13.67-.08.18-.21.78-.91.99-1.22.21-.31.42-.26.7-.16.29.1 1.82.86 2.13 1.01.31.16.52.24.6.36.08.13.08.74-.16 1.42z"/>
+                  </svg>
+                  <span>Transmit via WhatsApp Instead</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         FOOTER
+         ==================================================================== -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand-col">
+            <a href="#hero" class="brand-logo" aria-label="Brevos Home">
+              <svg class="brand-icon" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="30,4 56,19 56,41 30,56 4,41 4,19" stroke="#e5c07b" stroke-width="2.5" fill="rgba(229, 192, 123, 0.05)"/>
+                <line x1="30" y1="4" x2="30" y2="56" stroke="#e5c07b" stroke-width="1.8" stroke-dasharray="2 3"/>
+                <polygon points="30,16 46,25 46,35 30,44 14,35 14,25" fill="#e5c07b" fill-opacity="0.25" stroke="#e5c07b" stroke-width="1.5"/>
+              </svg>
+              <div class="brand-text-group">
+                <span class="brand-name">BREVOS</span>
+                <span class="brand-tag">DIGITAL STUDIO</span>
+              </div>
+            </a>
+            <p class="footer-brand-desc">
+              Crafting immersive, high-conversion 3D web platforms, precision SEO, and multi-channel marketing campaigns for hotels, boutique villas, and cafés.
+            </p>
+          </div>
+
+          <div class="footer-nav-col">
+            <h4 class="footer-col-title">Navigation</h4>
+            <ul class="footer-nav-list">
+              <li><a href="#hero" class="footer-nav-link">Home</a></li>
+              <li><a href="#services" class="footer-nav-link">Services</a></li>
+              <li><a href="#pricing" class="footer-nav-link">Pricing Plans</a></li>
+              <li><a href="#portfolio" class="footer-nav-link">Portfolio Showcase</a></li>
+              <li><a href="#contact" class="footer-nav-link">Get in Touch</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-channels-col">
+            <h4 class="footer-col-title">Connect</h4>
+            <ul class="footer-nav-list">
+              <li><a href="https://wa.me/94771234567" target="_blank" rel="noopener noreferrer" class="footer-nav-link">WhatsApp Business</a></li>
+              <li><a href="https://instagram.com/brevos.studio" target="_blank" rel="noopener noreferrer" class="footer-nav-link">Instagram</a></li>
+              <li><a href="https://facebook.com/BrevosStudio" target="_blank" rel="noopener noreferrer" class="footer-nav-link">Facebook</a></li>
+              <li><a href="https://t.me/BrevosStudio" target="_blank" rel="noopener noreferrer" class="footer-nav-link">Telegram</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="footer-copy">© 2026 Brevos Studio. All rights reserved. Crafted with precision & motion.</p>
+          <a href="#hero" class="back-to-top">
+            <span>Back to Top</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ====================================================================
+       INTERACTIVE PORTFOLIO DETAIL MODAL
+       ==================================================================== -->
+  <div id="project-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-container">
+      <button id="modal-close" class="modal-close-btn" aria-label="Close dialog">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="modal-img-wrapper">
+        <img id="modal-img" src="" alt="Project Preview" class="modal-img">
+      </div>
+
+      <div class="modal-content-body">
+        <span id="modal-badge" class="modal-badge"></span>
+        <h3 id="modal-title" class="modal-title"></h3>
+        <p id="modal-category" class="modal-category"></p>
+
+        <p id="modal-description" class="modal-description"></p>
+
+        <h4 class="modal-subhead">Engineered Capabilities</h4>
+        <div id="modal-tech" class="modal-tech-list"></div>
+
+        <h4 class="modal-subhead">Architectural Highlights</h4>
+        <ul id="modal-highlights" class="modal-highlights-list"></ul>
+
+        <div class="modal-actions">
+          <a id="modal-link" href="#" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Visit Website</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- External CDNs: Three.js, GSAP, ScrollTrigger, Lenis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+  <!-- Application Scripts -->
+  <script src="js/three-scene.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
