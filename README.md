@@ -1,3 +1,4 @@
+HEAD
 # Brevos — 3D Animated Web Design & Digital Marketing Studio Portfolio
 
 A modern, high-performance, single-page 3D animated portfolio website built for **Brevos**, an elite web design and digital marketing studio specializing in bespoke digital destinations for **luxury hotels, boutique villas, and artisanal cafés**.
@@ -118,3 +119,7 @@ npx serve
 - **Particle Count Scaling:** Automatically scales down from 1,800 to 700 particles on mobile/touch screens.
 - **Touch-Friendly Navigation:** Touch devices bypass cursor transforms and heavy tilt effects while retaining smooth touch momentum.
 - **Reduced Motion:** Fully compatible with `prefers-reduced-motion` system accessibility preferences.
+=======
+# Brevos
+Brevos strat-up website
+>>>>>>> 0a7ac02f5e0926f90e1d33ae2f9d5852e42a6260
